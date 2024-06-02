@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://fh16r4hpceu4"]
+
+[ext_resource type="Script" path="res://Pong/Ball.gd" id="1_ojx6b"]
+[ext_resource type="AudioStream" uid="uid://37obukweww0r" path="res://sound/Beep3.wav" id="2_4e176"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_frksf"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xcgh0"]
+
+[node name="Ball" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_frksf")
+gravity_scale = 0.0
+can_sleep = false
+lock_rotation = true
+max_contacts_reported = 1
+contact_monitor = true
+linear_damp_mode = 1
+angular_damp = -1.0
+script = ExtResource("1_ojx6b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xcgh0")
+
+[node name="ColorRect" type="ColorRect" parent="CollisionShape2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Beep" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("2_4e176")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

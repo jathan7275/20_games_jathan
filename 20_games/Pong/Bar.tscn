@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://bw108wcyxxb65"]
+
+[ext_resource type="Script" path="res://Pong/Bar.gd" id="1_fxgnj"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_c30wh"]
+
+[sub_resource type="Gradient" id="Gradient_m1du5"]
+offsets = PackedFloat32Array(0, 0.519481, 1)
+colors = PackedColorArray(0.458405, 0.458405, 0.458405, 1, 1, 1, 1, 1, 0.458824, 0.458824, 0.458824, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_q0oj2"]
+gradient = SubResource("Gradient_m1du5")
+width = 20
+height = 250
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vo5an"]
+custom_solver_bias = 0.149
+radius = 8.0
+height = 256.0
+
+[node name="Bar" type="CharacterBody2D"]
+wall_min_slide_angle = 3.14159
+platform_on_leave = 2
+script = ExtResource("1_fxgnj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_c30wh")
+texture = SubResource("GradientTexture2D_q0oj2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_vo5an")
+one_way_collision_margin = 10.8
